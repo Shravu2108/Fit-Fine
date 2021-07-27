@@ -8,6 +8,7 @@ dip, dipImg, palm, palmImg;
 var home, homeImg;
 
 var spot, spotImg, jump, jumpImg, homees, homeesImg;
+var gameState="start";
 
 function preload(){
     muscleImg = loadImage("mus.png");
@@ -27,7 +28,7 @@ function preload(){
     homeImg = loadImage("home.png");
     spotImg = loadImage("run.jpg");
     jumpImg = loadImage("skip.jpg");
-    homeesImg = loadImage("homees.png");
+    homeesImg = loadImage("home.png");
 
 }
    
@@ -45,12 +46,14 @@ function setup(){
     start = createSprite(500,500);
     start.addImage(startImg);
     start.scale = 0.6;
+    
+
 
 }
 function draw() {
     //background(0);
 
-    if (mousePressedOver(start)) {
+    if (gameState==="start" && mousePressedOver(start)) {
         reset();
         
         muscle = createSprite(250, 300);
@@ -59,10 +62,9 @@ function draw() {
         slim = createSprite(800, 300);
         slim.addImage(slimImg);
         slim.scale = 2;
+        gameState="play";
     
-    }
-
-    if (mousePressedOver(muscle)) {
+    }else if (gameState==="play" && mousePressedOver(muscle)) {
        
         rest();
 
@@ -98,13 +100,11 @@ function draw() {
         women.addImage(womenImg);
         women.scale = 1;
 
-        home = createSprite(950, 550);
+        home = createSprite(900, 550);
         home.addImage(homeImg);
         home.scale = 0.1;
 
-      }
-
-      if(mousePressedOver(slim)){
+      }else if(gameState==="play" && mousePressedOver(slim)){
         
         rest();
 
@@ -120,26 +120,22 @@ function draw() {
         jump.addImage(jumpImg);
         jump.scale = 0.2;
 
-        homees = createSprite(940, 550);
-        homees.addImage(homeesImg);
-        homees.scale = 0.2;
+        home = createSprite(900, 550);
+        home.addImage(homeImg);
+        home.scale = 0.1;
 
 
-      }
-
-      if(mousePressedOver(home)){
+      }else if(gameState==="play" && mousePressedOver(home)){
 
         over();
-        muscle = createSprite(200, 300);
+        muscle = createSprite(250, 300);
         muscle.addImage(muscleImg);
         muscle.scale = 2;
         slim = createSprite(800, 300);
         slim.addImage(slimImg);
-        slim.scale = 2;
+        slim.scale = 2;    
 
-      }
-
-      if(mousePressedOver(homees)){
+      }else if(gameState==="play" && mousePressedOver(homees)){
 
         sam();
         muscle = createSprite(250, 300);
@@ -181,5 +177,5 @@ function sam() {
     spot.destroy();
     jump.destroy();
     crunch.destroy();
-    homees.destroy();
+    home.destroy();
 }
